@@ -18,8 +18,9 @@ if [ "$(id -u)" != "0" ]; then
 fi
 
 # prompt
+echo "\[\033[38;5;10m\]sysprep.sh\[$(tput sgr0)\]"
 echo "This script will perform initial setup actions on this server."
-read -p "Type 'Y' to continue or anything else to abort: " GO
+read -r -p "Type 'Y' to continue or anything else to abort: " GO
 if [ "$GO" != "Y" ]; then
     echo "Aborting." 1>&2
     exit 1
@@ -34,7 +35,7 @@ echo "Setting root password..."
 passwd
 
 # ask for new standard user's username
-read -p "Please enter username for new standard user: " USERNAME
+read -r -p "Please enter username for new standard user: " USERNAME
 if [ -z "$USERNAME" ]; then
     echo "No username entered, aborting."
     exit 1
