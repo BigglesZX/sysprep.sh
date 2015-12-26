@@ -17,6 +17,14 @@ if [ "$(id -u)" != "0" ]; then
    exit 1
 fi
 
+# prompt
+echo "This script will perform initial setup actions on this server."
+read -p "Type 'Y' to continue or anything else to abort: " GO
+if [ "$GO" != "Y" ]; then
+    echo "Aborting." 1>&2
+    exit 1
+fi
+
 # set timezone
 echo "Setting timezone..."
 dpkg-reconfigure tzdata
@@ -27,6 +35,10 @@ passwd
 
 # ask for new standard user's username
 read -p "Please enter username for new standard user: " USERNAME
+if [ -z "$USERNAME" ]; then
+    echo "No username entered, aborting."
+    exit 1
+fi
 
 # add regular user
 echo "Creating standard user..."
