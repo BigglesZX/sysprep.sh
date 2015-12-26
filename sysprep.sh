@@ -11,6 +11,7 @@
 # |               https://github.com/BigglesZX/sysprep.sh                      |
 # `----------------------------------------------------------------------------'
 
+sleep 1
 echo -e "\033[0;32msysprep.sh\033[0m"
 
 # we need to be root
@@ -28,7 +29,10 @@ if [ "$GO" != "Y" ]; then
 fi
 
 # set timezone
-echo " * Setting timezone..."
+echo " * Updating apt and setting timezone..."
+apt-get update
+apt-get dist-upgrade
+apt-get autoremove
 dpkg-reconfigure tzdata
 
 # set root password
@@ -65,7 +69,6 @@ chmod 0440 /etc/sudoers.d/sysprep
 
 # python setup
 echo " * Setting up python..."
-apt-get update
 apt-get install python-setuptools
 easy_install pip
 pip install ipdb ipython virtualenv virtualenvwrapper
@@ -97,7 +100,6 @@ iptables -A INPUT -p tcp --dport 443 -j ACCEPT
 iptables -P INPUT DROP
 iptables -I INPUT 1 -i lo -j ACCEPT
 apt-get install iptables-persistent
-service iptables-persistent start
 iptables-save > /etc/iptables/rules.v4
 
 # install other common packages
@@ -123,4 +125,4 @@ apt-get autoremove
 apt-get clean
 
 # done
-echo "Done! Enjoy."
+echo "Done! Please reboot soon. Enjoy."
