@@ -18,7 +18,7 @@ if [ "$(id -u)" != "0" ]; then
 fi
 
 # prompt
-echo "\[\033[38;5;10m\]sysprep.sh\[$(tput sgr0)\]"
+echo -e "\033[0;32msysprep.sh\033[0m"
 echo "This script will perform initial setup actions on this server."
 read -r -p "Type 'Y' to continue or anything else to abort: " GO
 if [ "$GO" != "Y" ]; then
