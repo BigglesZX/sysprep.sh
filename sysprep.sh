@@ -104,7 +104,7 @@ iptables-save > /etc/iptables/rules.v4
 
 # install other common packages
 echo " * Installing other common apt packages..."
-apt-get install git ntp python-dev nginx mysql-server mysql-client libmysqlclient-dev memcached python-memcache
+apt-get install git ntp python-dev nginx mysql-server mysql-client libmysqlclient-dev memcached python-memcache htop
 
 # mysql timezone loading
 echo " * Loading timezone data into mysql..."
