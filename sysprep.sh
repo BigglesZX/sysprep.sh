@@ -42,7 +42,7 @@ passwd
 # ask for new standard user's username
 read -r -p "Please enter username for new standard user: " USERNAME
 if [ -z "$USERNAME" ]; then
-    echo "No username entered, aborting."
+    echo "No username entered, aborting." 1>&2
     exit 1
 fi
 
