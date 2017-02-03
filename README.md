@@ -28,7 +28,7 @@ I know piping URLs to bash is evil. It's especially terrible to do it as root. L
 ```
 The MIT License (MIT)
 
-Copyright (c) 2015 James Tiplady
+Copyright (c) 2017 James Tiplady
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
