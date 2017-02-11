@@ -106,6 +106,9 @@ iptables-save > /etc/iptables/rules.v4
 echo " * Installing other common apt packages..."
 apt-get install git ntp python-dev nginx mysql-server mysql-client libmysqlclient-dev memcached python-memcache htop libffi-dev libxml2-dev libxslt1-dev python-lxml fail2ban
 
+# generate Diffie-Hellman profile
+openssl dhparam -out /etc/ssl/nginx/dhparam.pem 2048
+
 # set up apt unattended upgrades
 dpkg-reconfigure --priority=low unattended-upgrades
 
