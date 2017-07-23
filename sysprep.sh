@@ -119,10 +119,11 @@ service mysql restart
 
 # install Pillow dependencies
 echo " * Installing Pillow dependencies..."
-apt-get install libjpeg-dev libjpeg8-dev libpng3 libfreetype6-dev
+apt-get install libjpeg-dev libjpeg8-dev libpng3 libfreetype6-dev libwebp-dev
 ln -s /usr/lib/`uname -i`-linux-gnu/libfreetype.so /usr/lib
 ln -s /usr/lib/`uname -i`-linux-gnu/libjpeg.so /usr/lib
 ln -s /usr/lib/`uname -i`-linux-gnu/libz.so /usr/lib
+ln -s /usr/lib/`uname -i`-linux-gnu/libwebp.so /usr/lib
 ln -s /usr/include/freetype2 /usr/local/include/freetype
 
 # cleanup
