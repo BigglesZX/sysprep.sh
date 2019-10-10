@@ -81,13 +81,13 @@ echo "source /usr/local/bin/virtualenvwrapper.sh" >> /home/$USERNAME/.bashrc
 # swapfile setup
 echo " * Adding swapfile..."
 dd if=/dev/zero of=/swapfile bs=1024 count=1024k
+chown root:root /swapfile
+chmod 0600 /swapfile
 mkswap /swapfile
 swapon /swapfile
 echo "/swapfile none swap sw 0 0" >> /etc/fstab
 echo 10 | tee /proc/sys/vm/swappiness
 echo vm.swappiness = 10 | tee -a /etc/sysctl.conf
-chown root:root /swapfile
-chmod 0600 /swapfile
 
 # iptables setup
 echo " * Setting up iptables with standard web server config..."
@@ -102,8 +102,8 @@ iptables-save > /etc/iptables/rules.v4
 
 # install other common packages
 echo " * Installing other common apt packages..."
-add-apt-repository universe
-add-apt-repository ppa:certbot/certbot
+add-apt-repository -y universe
+add-apt-repository -y ppa:certbot/certbot
 apt-get update
 apt-get -y install git ntp gettext python-dev python3-dev nginx mysql-server mysql-client libmysqlclient-dev memcached python-memcache htop libffi-dev libxml2-dev libxslt1-dev python-lxml fail2ban certbot python-certbot-nginx
 
@@ -122,6 +122,7 @@ service mysql restart
 # mysql root user config
 echo " * Configuring MySQL root user..."
 read -s -p "Enter new MySQL root password: " MYSQLPASSWORD
+echo ""
 mysql -u root -e "USE mysql; UPDATE user SET authentication_string=PASSWORD('$MYSQLPASSWORD') WHERE User='root'; UPDATE user SET plugin=\"mysql_native_password\"; FLUSH PRIVILEGES;"
 
 # install Pillow dependencies
@@ -134,9 +135,11 @@ apt-get -y autoremove
 apt-get clean
 
 # warn about ssh root login
+echo ""
 echo " *** You may wish to remove root's ability to log in via SSH    ***"
 echo " *** To do so, add 'PermitRootLogin no' to /etc/ssh/sshd_config ***"
 echo " *** Then restart ssh: # service ssh restart                    ***"
+echo ""
 
 # done
-echo "Done! Please reboot soon. Enjoy."
+echo "\033[0;32mDone! Please reboot soon. Enjoy!\033[0m"
