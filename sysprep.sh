@@ -131,5 +131,10 @@ echo " * Cleaning up..."
 apt-get autoremove
 apt-get clean
 
+# warn about ssh root login
+echo " *** You may wish to remove root's ability to log in via SSH    ***"
+echo " *** To do so, add `PermitRootLogin no` to /etc/ssh/sshd_config ***"
+echo " *** Then restart ssh: `service ssh restart`                    ***"
+
 # done
 echo "Done! Please reboot soon. Enjoy."
