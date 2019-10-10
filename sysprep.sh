@@ -104,27 +104,31 @@ iptables-save > /etc/iptables/rules.v4
 
 # install other common packages
 echo " * Installing other common apt packages..."
-apt-get install git ntp gettext python-dev python3-dev nginx mysql-server mysql-client libmysqlclient-dev memcached python-memcache htop libffi-dev libxml2-dev libxslt1-dev python-lxml fail2ban
+add-apt-repository universe
+add-apt-repository ppa:certbot/certbot
+apt-get update
+apt-get install git ntp gettext python-dev python3-dev python3.6-dev nginx mysql-server mysql-client libmysqlclient-dev memcached python-memcache htop libffi-dev libxml2-dev libxslt1-dev python-lxml fail2ban certbot python-certbot-nginx
 
 # generate Diffie-Hellman profile
+mkdir -p /etc/ssl/nginx
 openssl dhparam -out /etc/ssl/nginx/dhparam.pem 2048
 
 # set up apt unattended upgrades
 dpkg-reconfigure --priority=low unattended-upgrades
 
 # mysql timezone loading
-echo " * Loading timezone data into mysql..."
-mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root -p mysql
+echo " * Loading timezone data into MySQL..."
+mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql -u root mysql
 service mysql restart
+
+# mysql root user config
+echo " * Configuring MySQL root user..."
+read -s -p "Enter new MySQL root password: " MYSQLPASSWORD
+mysql -u root -e "USE mysql; UPDATE user SET authentication_string=PASSWORD('$MYSQLPASSWORD') WHERE User='root'; UPDATE user SET plugin=\"mysql_native_password\"; FLUSH PRIVILEGES;"
 
 # install Pillow dependencies
 echo " * Installing Pillow dependencies..."
-apt-get install libjpeg-dev libjpeg8-dev libpng3 libfreetype6-dev libwebp-dev
-ln -s /usr/lib/`uname -i`-linux-gnu/libfreetype.so /usr/lib
-ln -s /usr/lib/`uname -i`-linux-gnu/libjpeg.so /usr/lib
-ln -s /usr/lib/`uname -i`-linux-gnu/libz.so /usr/lib
-ln -s /usr/lib/`uname -i`-linux-gnu/libwebp.so /usr/lib
-ln -s /usr/include/freetype2 /usr/local/include/freetype
+apt-get install libtiff5-dev libjpeg8-dev libopenjp2-7-dev zlib1g-dev libfreetype6-dev libwebp-dev
 
 # cleanup
 echo " * Cleaning up..."
@@ -133,8 +137,8 @@ apt-get clean
 
 # warn about ssh root login
 echo " *** You may wish to remove root's ability to log in via SSH    ***"
-echo " *** To do so, add `PermitRootLogin no` to /etc/ssh/sshd_config ***"
-echo " *** Then restart ssh: `service ssh restart`                    ***"
+echo " *** To do so, add 'PermitRootLogin no' to /etc/ssh/sshd_config ***"
+echo " *** Then restart ssh: # service ssh restart                    ***"
 
 # done
 echo "Done! Please reboot soon. Enjoy."
