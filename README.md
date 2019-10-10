@@ -13,7 +13,7 @@ Runs through the following setup steps:
 * Common `apt` package installation
 * Pillow dependency installation
 
-Designed for Ubuntu 14.04 on a 512MB RAM instance, but fairly portable.
+Designed for Ubuntu 18.04 on a 1024MB RAM instance, but fairly portable.
 
 ## Usage
 
@@ -28,7 +28,7 @@ I know piping URLs to bash is evil. It's especially terrible to do it as root. L
 ```
 The MIT License (MIT)
 
-Copyright (c) 2017 James Tiplady
+Copyright (c) 2019 James Tiplady
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
