@@ -31,8 +31,8 @@ fi
 # set timezone
 echo " * Updating apt and setting timezone..."
 apt-get update
-apt-get dist-upgrade
-apt-get autoremove
+apt-get -y dist-upgrade
+apt-get -y autoremove
 dpkg-reconfigure tzdata
 
 # set root password
@@ -69,15 +69,13 @@ chmod 0440 /etc/sudoers.d/sysprep
 
 # python setup
 echo " * Setting up python..."
-apt-get install python-setuptools
-easy_install pip
+apt-get -y install python-setuptools python3-setuptools python-pip python3-pip
 pip install ipdb ipython virtualenv virtualenvwrapper
 
 # virtualenv .bashrc stuff
 echo " * Completing virtualenv config for $USERNAME..."
 echo "WORKON_HOME=\$HOME/.virtualenvs" >> /home/$USERNAME/.bashrc
 echo "export PROJECT_HOME=\$HOME/sites" >> /home/$USERNAME/.bashrc
-echo "#export VIRTUALENV_DISTRIBUTE=true" >> /home/$USERNAME/.bashrc
 echo "source /usr/local/bin/virtualenvwrapper.sh" >> /home/$USERNAME/.bashrc
 
 # swapfile setup
@@ -99,7 +97,7 @@ iptables -A INPUT -p tcp --dport 80 -j ACCEPT
 iptables -A INPUT -p tcp --dport 443 -j ACCEPT
 iptables -P INPUT DROP
 iptables -I INPUT 1 -i lo -j ACCEPT
-apt-get install iptables-persistent
+apt-get -y install iptables-persistent
 iptables-save > /etc/iptables/rules.v4
 
 # install other common packages
@@ -107,7 +105,7 @@ echo " * Installing other common apt packages..."
 add-apt-repository universe
 add-apt-repository ppa:certbot/certbot
 apt-get update
-apt-get install git ntp gettext python-dev python3-dev python3.6-dev nginx mysql-server mysql-client libmysqlclient-dev memcached python-memcache htop libffi-dev libxml2-dev libxslt1-dev python-lxml fail2ban certbot python-certbot-nginx
+apt-get -y install git ntp gettext python-dev python3-dev nginx mysql-server mysql-client libmysqlclient-dev memcached python-memcache htop libffi-dev libxml2-dev libxslt1-dev python-lxml fail2ban certbot python-certbot-nginx
 
 # generate Diffie-Hellman profile
 mkdir -p /etc/ssl/nginx
@@ -128,11 +126,11 @@ mysql -u root -e "USE mysql; UPDATE user SET authentication_string=PASSWORD('$MY
 
 # install Pillow dependencies
 echo " * Installing Pillow dependencies..."
-apt-get install libtiff5-dev libjpeg8-dev libopenjp2-7-dev zlib1g-dev libfreetype6-dev libwebp-dev
+apt-get -y install libtiff5-dev libjpeg8-dev libopenjp2-7-dev zlib1g-dev libfreetype6-dev libwebp-dev
 
 # cleanup
 echo " * Cleaning up..."
-apt-get autoremove
+apt-get -y autoremove
 apt-get clean
 
 # warn about ssh root login
