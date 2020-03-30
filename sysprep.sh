@@ -105,7 +105,10 @@ echo " * Installing other common apt packages..."
 add-apt-repository -y universe
 add-apt-repository -y ppa:certbot/certbot
 apt-get update
-apt-get -y install git ntp gettext python-dev python3-dev nginx mysql-server mysql-client libssl-dev default-libmysqlclient-dev memcached python-memcache htop libffi-dev libxml2-dev libxslt1-dev python-lxml fail2ban certbot python-certbot-nginx
+apt-get -y install git ntp gettext python-dev python3-dev nginx mysql-server mysql-client libssl-dev default-libmysqlclient-dev memcached python-memcache htop libffi-dev libxml2-dev libxslt1-dev python-lxml fail2ban certbot python-certbot-nginx haveged
+
+# ensure haveged is set to start at boot
+update-rc.d haveged defaults
 
 # generate Diffie-Hellman profile
 mkdir -p /etc/ssl/nginx
