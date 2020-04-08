@@ -4,20 +4,22 @@ Quick script for running initial actions on new Digital Ocean droplets. Salt sta
 
 Runs through the following setup steps:
 
+* Updating installed packages
 * Timezone selection
 * Root user configuration
 * Standard user creation
-* Python installation
-* Swap file setup
+* Python/virtualenv installation
+* Swap file configuration
 * iptables configuration
 * Common `apt` package installation
-* Pillow dependency installation
+* MySQL configuration
+* Pillow (Python image library) dependency installation
 
-Designed for Ubuntu 18.04 on a 1024MB RAM instance, but fairly portable.
+Designed for Ubuntu 18.04 on a 512MB RAM instance, but fairly portable.
 
 ## Usage
 
-I know piping URLs to bash is evil. It's especially terrible to do it as root. Look at the file. Be sensible.
+Piping the contents of third-party URLs to `bash` is, on the whole, extremely risky behaviour. It's also quite convenient. Please inspect the contents of the script to satisfy yourself that it's benign before attempting to run it. You can make BIG TROUBLE for yourself otherwise! If you're in any doubt, don't proceed. I'm just a guy on the Internet! For some extra peace of mind you may wish to download the script first, using `wget` or `curl`, before running it.
 
 ```
 # bash <(curl -o - https://raw.githubusercontent.com/biggleszx/sysprep.sh/master/sysprep.sh)
@@ -28,7 +30,7 @@ I know piping URLs to bash is evil. It's especially terrible to do it as root. L
 ```
 The MIT License (MIT)
 
-Copyright (c) 2019 James Tiplady
+Copyright (c) 2020 James Tiplady
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
