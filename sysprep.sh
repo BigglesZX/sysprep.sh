@@ -115,7 +115,7 @@ iptables -A INPUT -p tcp --dport 443 -j ACCEPT
 iptables -P INPUT DROP
 iptables -I INPUT 1 -i lo -j ACCEPT
 apt-get -y install iptables-persistent
-iptables-save > /etc/iptables/rules.v4
+netfilter-persistent save
 
 # install other common packages
 echo -e "${GR} * Installing other common apt packages...${NC}"
