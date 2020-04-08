@@ -48,7 +48,7 @@ echo -e "${GR} * Setting root password...${NC}"
 passwd
 
 # ask for new standard user's username
-read -r -p "Please enter username for new standard user: " USERNAME
+read -r -p "Please enter username for new standard user, or leave blank to skip: " USERNAME
 if [ -z "$USERNAME" ]; then
     echo "No username entered, skipping user creation, SSH key copy, sudo and virtualenv setup." 1>&2
 fi
@@ -83,13 +83,13 @@ if [ ! -z "$USERNAME" ]; then
 fi
 
 # python setup
-echo -e "${GR} * Setting up python..."
+echo -e "${GR} * Setting up python...${NC}"
 apt-get -y install python-setuptools python3-setuptools python-pip python3-pip
 pip install ipdb ipython virtualenv virtualenvwrapper
 
 # virtualenv .bashrc stuff
 if [ ! -z "$USERNAME" ]; then
-    echo -e "${GR} * Completing virtualenv config for ${USERNAME}..."
+    echo -e "${GR} * Completing virtualenv config for ${USERNAME}...${NC}"
     echo "WORKON_HOME=\$HOME/.virtualenvs" >> /home/$USERNAME/.bashrc
     echo "export PROJECT_HOME=\$HOME/sites" >> /home/$USERNAME/.bashrc
     echo "source /usr/local/bin/virtualenvwrapper.sh" >> /home/$USERNAME/.bashrc
