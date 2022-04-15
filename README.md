@@ -8,14 +8,14 @@ Runs through the following setup steps:
 * Timezone selection
 * Root user configuration
 * Standard user creation
-* Python/virtualenv installation
-* Swap file configuration
-* iptables configuration
+* Python/`virtualenv` installation
+* Swap file configuration (this is [officially discouraged](https://www.digitalocean.com/community/tutorials/how-to-add-swap-space-on-ubuntu-20-04) but included here for... legacy reasons?)
+* `iptables` configuration
 * Common `apt` package installation
 * MySQL configuration
 * Pillow (Python image library) dependency installation
 
-Designed for Ubuntu 18.04 on a 512MB RAM instance, but fairly portable.
+Designed for Ubuntu 20.04 on a 1GB RAM instance, but fairly portable. You can find a legacy version for Ubuntu 18.04 on the `ubuntu18` branch.
 
 ## Usage
 
@@ -25,12 +25,40 @@ Piping the contents of third-party URLs to `bash` is, on the whole, extremely ri
 # bash <(curl -o - https://raw.githubusercontent.com/biggleszx/sysprep.sh/master/sysprep.sh)
 ```
 
+If you want to use the legacy version for Ubuntu 18.04, it's this:
+
+```
+# bash <(curl -o - https://raw.githubusercontent.com/BigglesZX/sysprep.sh/ubuntu18/sysprep.sh)
+```
+
+## SSH root access
+
+When the script completes and your standard user is set up, you'll probably want to remove root's ability to log in over SSH.
+
+Open the file `/etc/ssh/sshd_config` and locate the line:
+
+```
+PermitRootLogin yes
+```
+
+Change it to:
+
+```
+PermitRootLogin no
+```
+
+Restart the `ssh` service (be warned: this will probably disconnect you if you're currently connected via SSH):
+
+```shell
+# service ssh restart
+```
+
 ## License
 
 ```
 The MIT License (MIT)
 
-Copyright (c) 2020 James Tiplady
+Copyright (c) 2022 James Tiplady
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
