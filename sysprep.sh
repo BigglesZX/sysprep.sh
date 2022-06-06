@@ -140,9 +140,9 @@ openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/ngi
 
 # update nginx defaultsite config
 echo -e "${GR} * Updating nginx default site config…${NC}"
-curl https://raw.githubusercontent.com/BigglesZX/sysprep.sh/master/snippets/self-signed.conf -o /etc/nginx/snippets/self-signed.conf
-curl https://raw.githubusercontent.com/BigglesZX/sysprep.sh/master/snippets/ssl-params.conf -o /etc/nginx/snippets/ssl-params.conf
-curl https://raw.githubusercontent.com/BigglesZX/sysprep.sh/master/snippets/defaultsite.conf -o /etc/nginx/sites-available/default
+curl https://raw.githubusercontent.com/BigglesZX/sysprep.sh/main/snippets/self-signed.conf -o /etc/nginx/snippets/self-signed.conf
+curl https://raw.githubusercontent.com/BigglesZX/sysprep.sh/main/snippets/ssl-params.conf -o /etc/nginx/snippets/ssl-params.conf
+curl https://raw.githubusercontent.com/BigglesZX/sysprep.sh/main/snippets/defaultsite.conf -o /etc/nginx/sites-available/default
 
 # set up apt unattended upgrades
 dpkg-reconfigure --priority=low unattended-upgrades

@@ -22,7 +22,7 @@ Designed for Ubuntu 20.04 on a 1GB RAM instance, but fairly portable. You can fi
 Piping the contents of third-party URLs to `bash` is, on the whole, extremely risky behaviour. It's also quite convenient. Please inspect the contents of the script to satisfy yourself that it's benign before attempting to run it. You can make BIG TROUBLE for yourself otherwise! If you're in any doubt, don't proceed. I'm just a guy on the Internet! For some extra peace of mind you may wish to download the script first, using `wget` or `curl`, before running it.
 
 ```
-# bash <(curl -o - https://raw.githubusercontent.com/biggleszx/sysprep.sh/master/sysprep.sh)
+# bash <(curl -o - https://raw.githubusercontent.com/biggleszx/sysprep.sh/main/sysprep.sh)
 ```
 
 If you want to use the legacy version (which is no longer maintained) for Ubuntu 18.04, it's this:
@@ -33,7 +33,7 @@ If you want to use the legacy version (which is no longer maintained) for Ubuntu
 
 ## nginx SSL configuration
 
-As of June 2022 the script generates a self-signed SSL certificate (prompting for the necessary details) and modifies the nginx configuration for the `default` virtual host to accept HTTPS requests, since without this any HTTPS request will be passed to the first virtual host that includes an SSL `server` block in its configuration. This change introduces some [snippets](https://github.com/BigglesZX/sysprep.sh/tree/master/snippets) that are copied from the repository to the server via `curl`. Per the warning above, you should inspect the contents of these snippets before running the script and ensure you're happy with the contents. The snippets and cert generation commands were sourced from a DigitalOcean [tutorial](https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-nginx-in-ubuntu-18-04) on the subject.
+As of June 2022 the script generates a self-signed SSL certificate (prompting for the necessary details) and modifies the nginx configuration for the `default` virtual host to accept HTTPS requests, since without this any HTTPS request will be passed to the first virtual host that includes an SSL `server` block in its configuration. This change introduces some [snippets](https://github.com/BigglesZX/sysprep.sh/tree/main/snippets) that are copied from the repository to the server via `curl`. Per the warning above, you should inspect the contents of these snippets before running the script and ensure you're happy with the contents. The snippets and cert generation commands were sourced from a DigitalOcean [tutorial](https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-nginx-in-ubuntu-18-04) on the subject.
 
 ## SSH root access
 
