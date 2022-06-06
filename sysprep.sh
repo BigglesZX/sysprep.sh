@@ -133,6 +133,17 @@ update-rc.d haveged defaults
 mkdir -p /etc/ssl/nginx
 openssl dhparam -out /etc/ssl/nginx/dhparam.pem 2048
 
+# generate self-signed SSL certificate so that HTTPS can be enabled for nginx default site
+echo -e "${GR} * Generating self-signed SSL certificate…${NC}"
+echo "*** When prompted for the 'Common Name' field, enter the server's IP address ***"
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt
+
+# update nginx defaultsite config
+echo -e "${GR} * Updating nginx default site config…${NC}"
+curl https://raw.githubusercontent.com/BigglesZX/sysprep.sh/master/snippets/self-signed.conf -o /etc/nginx/snippets/self-signed.conf
+curl https://raw.githubusercontent.com/BigglesZX/sysprep.sh/master/snippets/ssl-params.conf -o /etc/nginx/snippets/ssl-params.conf
+curl https://raw.githubusercontent.com/BigglesZX/sysprep.sh/master/snippets/defaultsite.conf -o /etc/nginx/sites-available/default
+
 # set up apt unattended upgrades
 dpkg-reconfigure --priority=low unattended-upgrades
 

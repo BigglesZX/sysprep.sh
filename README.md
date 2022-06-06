@@ -25,11 +25,15 @@ Piping the contents of third-party URLs to `bash` is, on the whole, extremely ri
 # bash <(curl -o - https://raw.githubusercontent.com/biggleszx/sysprep.sh/master/sysprep.sh)
 ```
 
-If you want to use the legacy version for Ubuntu 18.04, it's this:
+If you want to use the legacy version (which is no longer maintained) for Ubuntu 18.04, it's this:
 
 ```
 # bash <(curl -o - https://raw.githubusercontent.com/BigglesZX/sysprep.sh/ubuntu18/sysprep.sh)
 ```
+
+## nginx SSL configuration
+
+As of June 2022 the script generates a self-signed SSL certificate (prompting for the necessary details) and modifies the nginx configuration for the `default` virtual host to accept HTTPS requests, since without this any HTTPS request will be passed to the first virtual host that includes an SSL `server` block in its configuration. This change introduces some [snippets](https://github.com/BigglesZX/sysprep.sh/tree/master/snippets) that are copied from the repository to the server via `curl`. Per the warning above, you should inspect the contents of these snippets before running the script and ensure you're happy with the contents. The snippets and cert generation commands were sourced from a DigitalOcean [tutorial](https://www.digitalocean.com/community/tutorials/how-to-create-a-self-signed-ssl-certificate-for-nginx-in-ubuntu-18-04) on the subject.
 
 ## SSH root access
 
