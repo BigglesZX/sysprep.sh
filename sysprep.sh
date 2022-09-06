@@ -124,7 +124,12 @@ netfilter-persistent save
 echo -e "${GR} * Installing other common apt packages…${NC}"
 add-apt-repository -y universe
 apt-get update
-apt-get -y install mlocate git systemd-timesyncd gettext python-dev-is-python2 python3-dev nginx mysql-server mysql-client libssl-dev default-libmysqlclient-dev memcached python3-memcache htop libffi-dev libxml2-dev libxslt1-dev python-lxml fail2ban certbot python3-certbot-nginx haveged rng-tools5
+apt-get -y install mlocate git systemd-timesyncd gettext python-dev-is-python2 python3-dev nginx mysql-server mysql-client libssl-dev default-libmysqlclient-dev memcached python3-memcache htop libffi-dev libxml2-dev libxslt1-dev python-lxml fail2ban 
+python3-certbot-nginx haveged rng-tools5
+
+# add nginx restart hook to certbot config
+echo "" >> /etc/letsencrypt/cli.ini
+echo "deploy-hook = systemctl reload nginx" >> /etc/letsencrypt/cli.ini
 
 # ensure haveged is set to start at boot
 update-rc.d haveged defaults
